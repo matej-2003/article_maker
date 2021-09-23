@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/editor.css">
+    <link rel="stylesheet" href="./css/modal_style.css">
+    <script src="./js/script.js"></script>
+</head>
+
+<body>
+
+    <button for="modal_1">settings</button>
+    <div class="modal" id="modal_1">
+        <div class="modal_content">
+            <div class="element_maker" id="es_1" target_element="div1"></div>
+        </div>
+    </div>
+    <script src="./js/modal_script.js"></script>
+
+    <script>
+        let editing = true;
+        let span_packed = {
+            'tag': 'span',
+            'id': null,
+            'data': ['inner_e1 data'],
+            'class': [],
+            'style': {
+                'color': '#00ff00',
+            },
+            'attributes': {},
+        }
+
+        let div_packed = {
+            'tag': 'div',
+            'id': 'div1',
+            'data': [
+                'data',
+                span_packed,
+                'test',
+            ],
+            'class': [],
+            'style': {
+                'color': '#ff0000',
+            },
+            'attributes': {
+                'TEST_ATTR': 'TEST_DATA',
+            },
+        }
+
+        let div = unpack_element(div_packed);
+        $('body').appendChild(div);
+    </script>
+    <script src="./js/editor.js" defer></script>
+</body>
+
+</html>

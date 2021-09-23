@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/editor.css">
+    <script src="./js/script.js"></script>
+    <title>Maker</title>
+
+    <style>
+        .element_container {
+            border-bottom: 1px solid #b1b1b1;
+            margin: 0.5em 0em;
+        }
+    </style>
+</head>
+
+<body>
+    <article></article>
+
+
+    <script>
+        let article = [
+            {
+                'tag': 'h1',
+                'id': '',
+                'data': ['test title'],
+                'class': [],
+                'style': {},
+                'attributes': {},
+            },
+            {
+                'tag': 'p',
+                'id': '',
+                'data': ['hello testing data'],
+                'class': [],
+                'style': {},
+                'attributes': {},
+            },
+            {
+                'tag': 'img',
+                'id': '',
+                'data': [''],
+                'class': [],
+                'style': {
+                    'width': '80%',
+                    'height': 'auto',
+                },
+                'attributes': {
+                    'src': './images/image_1.jpg',
+                },
+            },
+            {
+                'tag': 'div',
+                'id': '',
+                'data': [''],
+                'class': [],
+                'style': {},
+                'attributes': {},
+            },
+        ];
+
+        
+        let html_article = $('article');
+
+        for (let i = 0; i < article.length; i++) {
+            let c = ce('div');
+            c.classList.add('element_container');
+            c.setAttribute('element_index', i)
+            c.appendChild(unpack_element(article[i]));
+            html_article.appendChild(c);
+        }
+    </script>
+    <!-- <script src="test.js"></script> -->
+</body>
+
+</html>
