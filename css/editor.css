@@ -1,5 +1,5 @@
 body {
-    padding: 3%;
+    padding: 2em;
 }
 
 .element_maker table {
@@ -49,4 +49,20 @@ p {
     cursor: pointer;
     text-decoration: underline;
     user-select: none;
+}
+
+
+/* nested orderd list */
+
+.nl ol {
+    counter-reset: item;
+}
+
+.nl li {
+    display: block;
+}
+
+.nl li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
 }

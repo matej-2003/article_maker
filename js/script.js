@@ -42,7 +42,7 @@ function unpack_element(packed_e, return_e = null) {
 function pack_element(e) {
     let element_packed = {
         'tag': e.tagName,
-        'id': e.id,
+        // 'id': e.id,
         'data': [],
         //'class': [],
         'style': {},
@@ -56,9 +56,9 @@ function pack_element(e) {
             element_packed['style'][s] = e.style[s];
         }
     }
-    delete element_packed.style['0'];
-    delete element_packed.style['cssText'];
-    delete element_packed.style['length'];
+    delete element_packed['style']['0'];
+    delete element_packed['style']['cssText'];
+    delete element_packed['style']['length'];
     for (let a of e.attributes) {
         if (!['id', 'class', 'style'].includes(a.name)) {
             element_packed['attributes'][a.name] = e.getAttribute(a.name);
@@ -66,15 +66,17 @@ function pack_element(e) {
     }
     for (let c of e.childNodes) {
         if (c instanceof Text) {
-            element_packed['data'].push(c.data);
+            if (!!c.data) element_packed['data'].push(c.data);
         } else {
             element_packed['data'].push(pack_element(c));
         }
     }
+
     // if (!!element_packed['id']) delete element_packed['id'];
     // if (element_packed['class'].length == 0) delete element_packed['class'];
+    if (element_packed['data'].length == 0) delete element_packed['data'];
     if (Object.keys(element_packed['style']).length == 0) delete element_packed['style'];
     if (Object.keys(element_packed['attributes']).length == 0) delete element_packed['attributes'];
-    
+
     return element_packed;
 }

@@ -65,7 +65,7 @@
             nav.innerHTML = '';
             for (let i of site_data['body']) {
                 if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(i['tag'])) {
-                    nav.innerHTML += `<li><a href="#${i["attributes"]["id"]}">Section #${i["attributes"]["id"]}</a></li>`;
+                    nav.innerHTML += `<li><a href="#${i["attributes"]["id"]}">${i['data']}</a></li>`;
                 }
             }
             page.appendChild(nav);
@@ -86,15 +86,15 @@
         }
 
         function make_paragraph() {
-            let e = ce('textarea');
+            let p_content = ce('textarea');
             let end = ce('button');
             end.innerText = "finish";
             end.onclick = function () {
                 site_data['body'].push({
                     "tag": "p",
-                    "data": e.value,
+                    "data": p_content.value,
                     "attributes": {
-                        "id": Math.floor(Math.random() * 10000),
+                        "id": Math.floor(Math.random() * 10000000),
                     }
                 });
                 editor.innerHTML = '';
@@ -102,7 +102,7 @@
             }
 
             editor.innerHTML = '';
-            editor.appendChild(e);
+            editor.appendChild(p_content);
             editor.appendChild(br);
             editor.appendChild(end);
         }

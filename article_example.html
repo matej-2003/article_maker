@@ -26,24 +26,25 @@
     <script>
         let article = [
             {
-                'tag': 'h1',
-                'id': '',
-                'data': ['test title'],
+                'tag': 'p',
+                'data': ['hello testing data'],
                 'class': [],
                 'style': {},
                 'attributes': {},
             },
+            /*
             {
-                'tag': 'p',
-                'id': '',
-                'data': ['hello testing data'],
+                'tag': 'h1',
+                'data': [
+                    'test title',
+
+                ],
                 'class': [],
                 'style': {},
                 'attributes': {},
             },
             {
                 'tag': 'img',
-                'id': '',
                 'data': [''],
                 'class': [],
                 'style': {
@@ -56,15 +57,15 @@
             },
             {
                 'tag': 'div',
-                'id': '',
                 'data': [''],
                 'class': [],
                 'style': {},
                 'attributes': {},
             },
+            */
         ];
 
-        
+
         let html_article = $('article');
 
         for (let i = 0; i < article.length; i++) {
@@ -73,6 +74,31 @@
             c.setAttribute('element_index', i)
             c.appendChild(unpack_element(article[i]));
             html_article.appendChild(c);
+        }
+
+        function make_editor(e, element_index) {
+            let element_container = ce('div');
+            element_container.setAttribute('element_index', element_index);
+            let setting = ce('div');
+            let editor = ce('div');
+            let container = ce('div');
+            
+            element_container.classList.add('element_container');
+            setting.classList.add('setting');
+            editor.classList.add('editor');
+            container.classList.add('container');
+
+            element_container.appendChild(setting);
+            element_container.appendChild(editor);
+            element_container.appendChild(container);
+
+            switch (e['tag']) {
+                case 'p':
+                    container.appendChild(make_paragraph());
+                    break;
+            }
+
+            e.appendChild(element_container);
         }
     </script>
     <!-- <script src="test.js"></script> -->
