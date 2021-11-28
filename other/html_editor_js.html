@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/icons.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/modal_style.css" />
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: max-content;
+        }
+
+        td,
+        th {
+            border: 1px solid #b5b5b5;
+            text-align: left;
+            padding: 4px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <button class="open_modal">Open Modal</button>
+    </div>
+    <div class="test">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum in optio odio ullam recusandae veritatis rem
+        debitis! Ab magni modi nam neque sapiente, minima sequi ea quaerat explicabo hic unde quis. Minima dolor
+        voluptates cumque.
+        <br>
+        <img src="../images/image_5.jpg">
+        <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum deleniti dolores enim iure et harum ipsa! Natus,
+        ratione animi placeat dolor accusantium quibusdam, unde, eaque repudiandae nemo ipsa totam a.
+        <table>
+            <tr>
+                <th>Lorem.</th>
+                <th>Ducimus.</th>
+                <th>Pariatur.</th>
+            </tr>
+            <tr>
+                <td>Lorem, ipsum dolor.</td>
+                <td>Eius, dolore ad.</td>
+                <td>Tempora, sunt? Blanditiis.</td>
+            </tr>
+        </table>
+    </div>
+    <script src="../js/fonts.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/modal_script.js"></script>
+    <script src="../js/HTMLEditor.js"></script>
+    <script>
+        let element = null;
+
+        let main = $('.main');
+        let c = new HTMLEditor();
+        c.textbox.innerHTML = $('.test').innerHTML;
+
+        let myModal = new Modal(c.editor, 'Html Editor', 'Footer', () => {
+            element = c.get_content();
+            console.log(JSON.stringify(element));
+            main.append(unpack_element(element));
+        });
+
+        main.append(myModal.modal);
+
+        $('.open_modal').onclick = () => {
+            myModal.start();
+        }
+    </script>
+</body>
+
+</html>

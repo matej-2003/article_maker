@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/modal_style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/icons.css">
+    <style>
+        img {
+            width: 300px;
+        }
+
+        .svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- upper -->
+    <div class="page_settings r">
+        Page preview
+        <label class="toggle">
+            <input type="checkbox" id="page_preview" checked>
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <hr>
+
+    <!-- article -->
+    <div class="main"></div>
+
+    <!-- adder -->
+    <div class="element_add">
+        <!-- <object type="image/svg+xml" data="./images/add.svg" class="svg"></object> -->
+        <button class="add">Add</button>
+    </div>
+
+    <script src="./js/script.js"></script>
+    <script src="./js/fonts.js"></script>
+    <script src="./js/ElementEditor.js"></script>
+    <script src="./js/HTMLEditor.js"></script>
+    <script src="./js/modal_script.js"></script>
+    <script>
+        let element_list = [];
+
+        let main = $('.main');
+        let page_preview_btn = $('#page_preview');
+        let element_add_div = $('.element_add');
+        let add_element_btn = $('.element_add object');
+        let add = $('.add');
+        
+        page_preview_btn.onclick = () => {
+            if (!page_preview_btn.checked) {
+                for (let i of element_list) {
+                    i.show();
+                }
+                element_add_div.style.display = 'block';
+            } else {
+                for (let i of element_list) {
+                    i.hide();
+                }
+                element_add_div.style.display = 'none';
+            }
+        };
+
+        add.onclick = () => {
+            let tmp = new ElementEditor(new HTMLEditor());
+            tmp.modal.start();
+            main.append(tmp.html);
+            element_list.push(tmp);
+        }
+    </script>
+</body>
+
+</html>

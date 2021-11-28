@@ -1,0 +1,17 @@
+svg {
+    height: 1.5em;
+    width: auto;
+    display: inline-block;
+    fill: #2c2c2c;
+}
+svg:hover {
+    fill: #8a8a8a;
+}
+
+svg:hover {
+    fill: #8a8a8a;
+}
+
+svg:active {
+    fill: #0066ff;
+}
