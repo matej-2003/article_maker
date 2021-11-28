@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/modal_style.css">
+    <link rel="stylesheet" href="../css/container.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/editor.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+    <link rel="stylesheet" href="../css/icons.css">
+    <link rel="stylesheet" href="../css/style_html_editor.css">
+    <style>
+        img {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page_settings r">
+        Page settings
+        <label class="toggle">
+            <input type="checkbox" id="page_preview">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <hr>
+
+
+
+    <div class="main">
+        <div class="element_container show">
+            <div class="element_settings r">
+                <span class="settings_btn" for="add_element_modal">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path
+                            d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+                    </svg>
+                </span>
+            </div>
+            <div class="element_block">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat velit iure facilis dolores nostrum
+                dolore
+                at, a ex recusandae fuga, obcaecati accusamus voluptatem dicta expedita blanditiis animi rerum
+                asperiores
+                sed.
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="element_adder">
+        <svg viewBox="0 0 24 24" for="add_element_modal">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path
+                d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+        </svg>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <!-- <script src="../js/editor.js" defer></script> -->
+    <script src="../js/fonts.js"></script>
+    <script src="../js/Editor.js" defer></script>
+    <script src="../js/HTMLEditor.js" defer></script>
+    <script src="../js/modal_script.js"></script>
+    <script>
+        let element_editors_settings = $$('.element_settings');
+        let element_editors = $$('.element_container');
+        let page_preview_btn = $('#page_preview');
+        let page_preview = false;
+        let add_element_btn = $('.element_adder');
+        let main = $('.main');
+
+        let main_packed = [];
+
+        add_element_btn.onclick = function () {
+            element_editors = $$('.element_container');
+            element_editors_settings = $$('.element_settings');
+
+            let html_editor = new HTMLEditor();
+            let add_btn = ce('button');
+            add_btn.innerText = 'Add';
+            let div1 = ce('div', {'class': 'r'});
+            div1.append(
+                html_editor.editor,
+                add_btn,
+            );
+            let tmp_modal = new Modal(div1, 'HTML editor', 'Footer');
+
+            add_btn.onclick = () => {
+                main.append(unpack_element(html_editor.get_content()));
+                tmp_modal.stop();
+            };
+            tmp_modal.start();
+            main.append(tmp_modal.modal);
+        }
+
+        page_preview_btn.onclick = function () {
+            page_preview = !page_preview;
+            add_element_btn.style.display = (page_preview) ? "none" : "block";
+
+            for (let i of element_editors) {
+                if (page_preview) {
+                    i.classList.remove('show');
+                    i.classList.add('hide');
+                } else {
+                    i.classList.remove('hide');
+                    i.classList.add('show');
+                }
+            }
+
+            for (let i of element_editors_settings) {
+                i.style.display = (page_preview) ? "none" : "inline-block";
+            }
+        }
+    </script>
+</body>
+
+</html>

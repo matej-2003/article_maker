@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/script.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/editor.css">
-    <script src="./js/script.js"></script>
+    <script src=".../js/script.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/editor.css">
+    <script src=".../js/script.js"></script>
     <title>Document</title>
 </head>
 
@@ -32,7 +32,7 @@
         let add = $('button#add');
         let select = $('#operation');
         let editor_container = $('.editor');
-        let page_container = $('div.page');
+        let page = $('div.page');
         let br = ce('br');
 
         let site_data = {
@@ -41,14 +41,14 @@
             "body": [
                 {
                     'tag': 'img', 
-                    'data': [''],
-                    'class': [],
+                    'data': [],
+                    'class': ['test'],
                     'style': {
                         'width': '150px',
                         'height': 'auto',
                     },
                     'attributes': {
-                        'src': './images/image_1.jpg',
+                        'src': '../images/image_1.jpg',
                     },
                 },
                 {
@@ -94,6 +94,7 @@
             );
             console.log(pack_element(page));
         }
+
         function paragraph_editor(editor, data_list) {
             let p_content = ce('textarea');
 

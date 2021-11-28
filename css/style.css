@@ -65,7 +65,7 @@ article {
     position: static;
 }
 
-.img_description {
+.img_desc {
     font-size: smaller;
     font-style: italic;
     color: #444444;
@@ -75,6 +75,7 @@ article {
 .img_container {
     display: inline-block;
     height: auto;
+    width: min-content;
 }
 
 input,
@@ -115,6 +116,7 @@ input[type="file"] {
 
 input[type="checkbox"],
 input[type="radio"],
+input[type="color"],
 input[type="submit"] {
     display: inline-block;
     width: max-content;

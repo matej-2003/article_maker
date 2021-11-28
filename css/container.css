@@ -1,0 +1,60 @@
+.element_container {
+    /*background-color: #66a3ff;*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.2em;
+    padding: 0.2em;
+    /*border-radius: 3px;*/
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.3em;
+}
+
+.show {
+    border-bottom: 1px solid #aaa;
+}
+
+.show:hover {
+    background-color: #eeeeee;
+}
+
+.hide {
+    border-bottom: none;
+}
+
+.hide:hover {
+    border-bottom: none;
+    background-color: #fff;
+}
+
+.element_container:hover {
+    background-color: #eeeeee;
+}
+
+.element_container .element_settings {
+    border-right: 1px solid #a7a7a7;
+    padding: 0.2em;
+}
+
+.element_adder svg,
+.element_settings svg
+{
+    height: 1.5em;
+    width: auto;
+    display: inline-block;
+    fill: #2c2c2c;
+}
+.element_adder svg:hover,
+.element_settings svg:hover {
+    fill: #8a8a8a;
+}
+
+.element_adder svg:active,
+.element_settings svg:active {
+    fill: #0066ff;
+}
+
+.element_adder {
+    text-align: center;
+}

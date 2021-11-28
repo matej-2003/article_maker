@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/modal_style.css">
+    <style>
+        body {
+            padding: 1em;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: max-content;
+        }
+
+        td,
+        th {
+            border: 1px solid #b5b5b5;
+            text-align: left;
+            padding: 4px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .table_editor {
+            display: flex;
+            flex-direction: column;
+            max-width: max-content;
+            min-height: 100%;
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+
+        .aline {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .add_col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .add_row {
+            text-align: center;
+        }
+
+        svg {
+            height: 1.5em;
+            width: auto;
+            display: inline-block;
+            fill: #2c2c2c;
+        }
+
+        svg:hover {
+            fill: #8a8a8a;
+        }
+
+        svg:active {
+            fill: #0066ff;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main"></div>
+    <!-- <button id="start_modal">delete</button> -->
+    <div class="table_editor">
+        <div class="aline">
+            <div class="table_container">
+                <table>
+                    <tr>
+                        <th>Lorem.</th>
+                        <th>Ducimus.</th>
+                        <th>Pariatur.</th>
+                    </tr>
+                    <tr>
+                        <td>Lorem, ipsum dolor.</td>
+                        <td>Eius, dolore ad.</td>
+                        <td>Tempora, sunt? Blanditiis.</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="add_col">
+                <svg viewBox="0 0 24 24" for="add_element_modal">
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                        d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                </svg>
+            </div>
+        </div>
+        <div class="add_row">
+            <svg viewBox="0 0 24 24" for="add_element_modal">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                    d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+        </div>
+    </div>
+
+    <div id="add_modal" class="modal">
+        <div class="modal_content">
+            <div class="modal_body">
+                <br>
+                Col 1: <input type="text">
+                Col 2: <input type="text">
+                Col 3: <input type="text">
+                <br>
+                <button>Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="add_modal1" class="modal">
+        <div class="modal_content">
+            <div class="modal_body">
+                <br>
+                Header: <input type="text">
+                Row 1: <input type="text"><br>
+                <button>Add</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/TableEditor.js"></script>
+    <script src="../js/modal_script.js"></script>
+
+    <script>
+//       let main = $('.main');
+//        let c = new TableEditor(5, 6);
+//        main.append(c.table);
+        $('.add_row').onclick = () => {
+            start_modal('add_modal');
+        }
+
+        $('.add_col').onclick = () => {
+            start_modal('add_modal1');
+        }
+    </script>
+</body>
+
+</html>

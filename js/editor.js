@@ -36,6 +36,8 @@ function init_element_maker(id) {
             </td>
         </tr>
     </table>`;
+    let element_maker = $(`.element_maker${id}`);
+    let modal_parent = element_maker.getAttribute('modal_parent');
 
     let tag = $(`.element_maker${id} input[name=tag]`);
     let attr_list = $(`.element_maker${id} .attr_list`);
@@ -47,8 +49,8 @@ function init_element_maker(id) {
     let inner_html = $(`.element_maker${id} textarea[name=inner_html]`);
     let cancel = $(`.element_maker${id} button[name=cancel]`);
     let finnish = $(`.element_maker${id} button[name=finnish]`);
-    let target_element = $(`${id}`).getAttribute('target_element');
-    target_element = $(`#${target_element}`);
+    let target_element_id = $(`${id}`).getAttribute('target_element');
+    target_element = $(`#${target_element_id}`);
     element = pack_element(target_element);
     refresh_attributes();
     load_element_data();
@@ -60,7 +62,7 @@ function init_element_maker(id) {
     classes.onchange = function () {
         element['attributes']['class'] = classes.value;
     }
-    
+
     style.onchange = function () {
         let e_style = (style.value).trim().replace('\n', '').split(';');
         for (let s of e_style) {
@@ -69,17 +71,26 @@ function init_element_maker(id) {
                 element['style'][property[0].trim()] = property[1].trim();
             }
         }
+        refresh_attributes();
         // console.log(element);
     }
 
-    inner_html.onchange = function() {
+    inner_html.onchange = function () {
         element['inner_html'] = inner_html.value;
     }
 
-    cancel.onclick = function () { }
+    cancel.onclick = function () {
+        if (!!modal_parent) {
+            stop_modal(modal_parent);
+        }
+    }
     finnish.onclick = function () {
         element['tag'] = tag.value;
         element['attributes']['class'] = classes.value;
+        // element
+        if (!!modal_parent) {
+            stop_modal(modal_parent);
+        }
     }
 
     attr_add.onclick = function () {
@@ -97,15 +108,23 @@ function init_element_maker(id) {
             attr_list.appendChild(make_attr(i, element['attributes'][i]));
         }
         // console.log(element);
-        if (target_element != null) {
+        if (!!target_element) {
             target_element = unpack_element(element);
+            // target_element.parentNone.replaceChild(unpack_element(element), target_element);
+            target_element.id = target_element_id;
+            let tmp_e = document.getElementById(target_element_id);
+            tmp_e.parentNone.replaceChild(target_element, tmp_e);
         }
     }
 
     function load_element_data() {
         tag.value = element['tag'];
-        classes.value = element['class'].join(' ');
-        style.value = element['style'].toString();
+        if (!!element['class']) {
+            classes.value = element['class'].join(' ');
+        }
+        if (!!element['style']) {
+            style.value = target_element.style.cssText;
+        }
         inner_html.value = target_element.innerHTML;
     }
 
@@ -141,6 +160,6 @@ function load_maker() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     load_maker();
 }
