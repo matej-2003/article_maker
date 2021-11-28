@@ -26,13 +26,13 @@
 <body>
     <div class="main"></div>
     <button id="start_modal">delete</button>
-    <script src="../js/Editor.js"></script>
+    <script src="../js/ElementSettings.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/modal_script.js"></script>
     <script>
         let main = $('.main');
 
-        let editor = new ElementEditor();
+        let editor = new ElementSettings();
         let c = new Modal(editor.table, 'Element editor', 'footer');
         main.append(c.modal);
         main.append(c.open_btn);

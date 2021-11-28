@@ -5,7 +5,9 @@ class ImageEditor {
         this.ratio = 1;
         this.w_oreginal = this.h_oreginal = 1;
         this.image = ce('img');
+        this.html = ce('div');
         this.table = ce('table');
+        this.html.append(this.table);
         this.file_input = ce('input', {
             'type': 'file',
             'accept': '.png, .jpg, .jpeg .gif',
@@ -95,8 +97,10 @@ class ImageEditor {
             f_reader.readAsDataURL(this.file_input.files[0]);
             f_reader.addEventListener('load', (event) => {
                 this.image.src = event.target.result;
-                this.w_oreginal = this.w_input.value = this.image.width;
-                this.h_oreginal = this.h_input.value = this.image.height;
+                this.w_oreginal = this.image.width;
+                this.h_oreginal = this.image.height;
+                this.w_input.value = this.image.width;
+                this.h_input.value = this.image.height;
                 this.show_ratio(this.image.width, this.image.height);
             });
         });

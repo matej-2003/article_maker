@@ -1,11 +1,11 @@
 class HTMLEditor {
     constructor() {
-        this.editor = ce('div', { 'class': 'editor' });
+        this.html = ce('div', { 'class': 'editor' });
         this.toolbar = ce('div', { 'class': 'toolbar' });
         this.toolbar2 = ce('div', { 'class': 'toolbar2' });
         this.textbox = ce('div', { 'class': 'textbox', 'contenteditable': 'true'});
 
-        this.editor.append(
+        this.html.append(
             this.toolbar2,
             this.toolbar,
             this.textbox,
