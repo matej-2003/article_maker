@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding: 5%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="page">
+
+    </div>
+    <div class="editor">
+    </div>
+    <br>
+    <div>
+        <select id="select">
+            <option value="p">Paragraph</option>
+            <option value="h">Subtitle</option>
+            <option value="img">Image</option>
+        </select>
+        <button id="add">Add</button>
+    </div>
+
+    <script>
+        let add = $('button#add');
+        let select = $('#select');
+        let editor = $('.editor');
+        let page = $('div.page');
+        let br = ce('br');
+
+        let site_data = {
+            "title": null,
+            "nav": [],
+            "body": [],
+            "body_": [],
+            "author": null,
+            "date": null,
+        }
+
+        function refresh() {
+            page.innerHTML = '';
+            for (let i of site_data['body']) {
+                let e = ce(i['tag']);
+                e.innerHTML = i['data'];
+                console.log(i);
+
+                for (let attr in i['attributes']) {
+                    e.setAttribute(attr, i['attributes'][attr]);
+                }
+                e.attributes = i.attributes;
+
+                if (e != undefined && e != null) {
+                    page.appendChild(e);
+                }
+            }
+        }
+
+        add.onclick = function () {
+            switch (select.value) {
+                case 'p':
+                    make_paragraph();
+                    break;
+                case 'h':
+                    make_subtitle();
+                    break;
+                case 'img':
+                    make_image();
+                    break;
+            }
+
+            console.log(site_data);
+        }
+
+        function make_paragraph() {
+            let e = ce('textarea');
+            let end = ce('button');
+            end.innerText = "finish";
+            end.onclick = function () {
+                site_data['body'].push({
+                    "tag": "p",
+                    "data": e.value,
+                });
+                editor.innerHTML = '';
+                refresh();
+            }
+
+            editor.innerHTML = '';
+            editor.appendChild(e);
+            editor.appendChild(br);
+            editor.appendChild(end);
+        }
+
+        function make_subtitle() {
+            let tb = ce('table');
+            let row = tb.insertRow(0);
+            
+            let end = ce('button');
+            end.innerText = "finish";
+            
+            let e = ce('input');
+            e.type = 'text';
+
+            let size = ce('select');
+            for (let i = 2; i < 6; i++) {
+                size.innerHTML += `<option value="h${i}">Subtitle ${i}</option>`;
+            }
+
+            row.insertCell(0).appendChild(e);
+            row.insertCell(1).appendChild(size);
+            
+            editor.innerHTML = '';
+            editor.appendChild(tb)
+            editor.appendChild(br);
+            editor.appendChild(end);
+
+            end.onclick = function () {
+                site_data['body'].push({
+                    "tag": size.value,
+                    "data": e.value,
+                });
+                editor.innerHTML = '';
+                refresh();
+            }
+        }
+
+        function make_image() {
+            editor.innerHTML = '';
+            let e = ce('img');
+            e.src = 'image_1.jpg';
+            let end = ce('button');
+            end.innerText = "finish";
+
+            end.onclick = function () {
+                let attrs = {};
+
+                for (let attr of e.attributes) {
+                    attrs[attr.name] = attr.value;
+                }
+
+                site_data['body'].push({
+                    "tag": "img",
+                    "attributes": attrs,
+                });
+                editor.innerHTML = '';
+                refresh();
+            }
+
+            editor.appendChild(e);
+            editor.appendChild(br);
+
+            let tb = ce('table');
+
+            tb.innerHTML += `<tr>`;
+            tb.innerHTML += `<td>Source</td>`;
+            tb.innerHTML += `<td><input type="text" class="src"></td>`;
+            tb.innerHTML += `</tr>`;
+
+            tb.innerHTML += `<tr>`;
+            tb.innerHTML += `<td>Alt</td>`;
+            tb.innerHTML += `<td><input type="text" class="alt"></td>`;
+            tb.innerHTML += `</tr>`;
+
+            editor.appendChild(tb);
+            editor.appendChild(end);
+
+            let src = $('table input.src');
+            let alt = $('table input.alt');
+
+            src.onchange = function () {
+                e.src = src.value;
+            }
+
+            alt.onchange = function () {
+                e.alt = alt.value;
+            }
+        }
+    </script>
+</body>
+
+</html>

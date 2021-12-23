@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .edit-box {
+            padding: 0px;
+            width: 80%;
+            resize: vertical;
+            display: grid;
+            grid-template-areas: 'toolbar''textarea';
+            grid-template-rows: max-content auto;
+        }
+        
+        .toolbar {
+            grid-area: toolbar;
+            background-color: #dddddd;
+            padding: 1em;
+            margin: 0px;
+        }
+        
+        .btn-group button {
+            background-color: #ffffff;
+            border: 0px;
+            padding: 0.5em 1em 0.5em 1em;
+            cursor: pointer;
+            float: left;
+            border-right: 1px solid grey;
+        }
+        
+        .btn-group button:last-child {
+            border-right: none;
+        }
+        
+        .btn-group button:hover {
+            background-color: #dddddd;
+        }
+        
+        .btn-group {
+            display: inline-block;
+            border: 1px solid grey;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .textarea:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+        }
+        
+        .textarea {
+            overflow: auto;
+            resize: vertical;
+            grid-area: textarea;
+            padding: 0.2rem;
+            line-height: 1.5;
+            border: 1px solid #ced4da;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img height="100" width="100" src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg">
+
+    <h1>The textarea element</h1>
+    <div class="edit-box">
+        <div class="toolbar">
+            <div class="btn-group">
+                <button>A&#8593;</button>
+                <button>a&#8595;</button>
+                <button><b>B</b></button>
+                <button><i>I</i></button>
+            </div>
+            <div class="btn-group">
+                <button>&#x3C;/&#x3E;</button>
+                <button>&#9600;</button>
+                <button>&#937;</button>
+            </div>
+            <div class="btn-group">
+                <button><u>A</u></button>
+                <button><s>A</s></button>
+                <button>A<sup>y</sup></button>
+                <button>A<sub>y</sub></button>
+            </div>
+            <div class="btn-group">
+                <button><i class="fa fa-file-image-o"></i></button>
+            </div>
+        </div>
+        <div contenteditable="true" class="textarea" id="ta">
+            This is test text <br>
+            <b>test bold</b>
+        </div>
+    </div>
+
+    <script>
+        let ta = document.getElementById("ta");
+        ta.addEventListener("change", function() {
+            console.log(this.innerHTML);
+        });
+    </script>
+</body>
+
+</html>

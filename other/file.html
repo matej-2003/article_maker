@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="test">
+    <script src="./js/script.js"></script>
+    <script>
+        let file = $('#test');
+        console.log(file);
+
+        let form = ce('form', {'action': '', 'method': 'POST'});
+        let file_input = ce('input', {'type': 'file', 'name': 'my_file'});
+        form.append(file_input);
+
+        var f_reader = new FileReader();
+        file.onchange = () => {
+            f_reader.readAsDataURL(file.files[0]);
+            f_reader.onload = (event) => {
+                console.log(file_input, 'file submited');
+                // file_input.value = file.value;
+                form.submit();
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/modal_style.css">
+    <style>
+        table {
+            width: 100%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main"></div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/ImageEditor.js"></script>
+    <script src="../js/modal_script.js"></script>
+
+    <script>
+        let img = null;
+        let main = $('.main');
+        let img_editor = new ImageEditor(true);
+        let c = new Modal(img_editor.table, 'Image editor');
+        img_editor.format_desc();
+        main.append(c.modal);
+        main.append(c.open_btn);
+
+        img_editor.finnish_btn.addEventListener('click', () => {
+            img = pack_element(img_editor.img_container);
+            c.stop();
+        });
+
+        /*
+        for (let i = 0; i < 10; i++) {
+            let d = new Modal('test', 'test', 'test');
+            c.modal.append(d.modal);
+            d.start();
+        }
+        */
+    </script>
+</body>
+
+</html>

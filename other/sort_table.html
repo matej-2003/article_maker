@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sort a HTML Table Alphabetically</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: max-content;
+        }
+
+        td,
+        th {
+            border: 1px solid #b5b5b5;
+            text-align: left;
+            padding: 4px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        th {
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p><strong>Click the headers to sort the table.</strong></p>
+    <p>The first time you click, the sorting direction is ascending (A to Z).</p>
+    <p>Click again, and the sorting direction will be descending (Z to A):</p>
+    &#9660;
+    &#9650;
+    <table id="test">
+        <tr>
+            <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+            <th>
+                <span class="name">Name</span>
+                <span class="arrow">&#9660;</span>
+            </th>
+            <th>
+                <span class="name">Country</span>
+                <span class="arrow">&#9660;</span>
+            </th>
+        </tr>
+        <tr>
+            <td>Berglunds snabbkop</td>
+            <td>Sweden</td>
+        </tr>
+        <tr>
+            <td>North/South</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Koniglich Essen</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Italy</td>
+        </tr>
+        <tr>
+            <td>Paris specialites</td>
+            <td>France</td>
+        </tr>
+        <tr>
+            <td>Island Trading</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Canada</td>
+        </tr>
+    </table>
+    <script src="./js/script.js"></script>
+    <script>
+        const DESC = "desc";
+        const ASC = "asc";
+
+        let order = ASC;
+        function sort_table(n) {
+            let table = document.querySelector('table#test');
+            let rows = table.rows;
+            //if (order == DESC) order = ASC;
+            //else order = DESC;
+
+            let sorted = false;
+            console.log(rows);
+            //while (!sorted) {
+            let c = 0;
+            for (let j = 1; j < rows.length; j++) {
+                for (let i = 1; i < rows.length; i++) {
+                    if (i <= j) continue;
+
+                    if (order == ASC) {
+                        if (rows[j].cells[n].innerText.toLowerCase() < rows[i].cells[n].innerText.toLowerCase()) {
+                            let tmp = rows[j].cells[n].innerHTML;
+                            rows[j].cells[n].innerHTML = rows[i].cells[n].innerHTML;
+                            rows[i].cells[n].innerHTML = tmp;
+                        } else {
+                            let tmp = rows[i].cells[n].innerHTML;
+                            rows[i].cells[n].innerHTML = rows[j].cells[n].innerHTML;
+                            rows[j].cells[n].innerHTML = tmp;
+                        }
+                    } else {
+                        if (rows[j].cells[n].innerText.toLowerCase() > rows[i].cells[n].innerText.toLowerCase()) {
+    
+                        } else {
+                            
+                        }
+                    }
+
+                    console.log(j, i);
+                    c += 1;
+                }
+            }
+            console.log(c);
+            //}
+        }
+
+        // sort_table(1);
+
+        class Table {
+            constructor() {
+                this.html = ce('table');
+                this.html.createTHead();
+                this.html.createTBody();
+            }
+
+            add_headers(headers) {
+                let header = this.html.tHead.insertRow(-1);
+                for (let i of headers) {
+
+                    header.insertCell(-1).append(i);
+                }
+            }
+
+            add_row(row) {
+                let new_row = this.html.insertRow(-1);
+                for (let cell of row) {
+                    new_row.insertCell(-1).append(cell);
+                }
+            }
+        }
+
+        let d = new Table();
+        d.add_headers(['testing', 'hello']);
+        d.add_row(['test', 'hello']);
+    </script>
+
+</body>
+
+</html>

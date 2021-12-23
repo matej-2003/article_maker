@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .div1 {
+            padding: 5px;
+            width: fit-content;
+            height: auto;
+            resize: both;
+            overflow: auto;
+        }
+        
+        .div-perent {
+            padding: 0px;
+            width: 500px;
+            overflow: auto;
+            resize: vertical;
+            display: grid;
+            grid-template-areas: 'toolbar''textarea';
+            grid-template-rows: max-content auto;
+        }
+        
+        .toolbar {
+            grid-area: toolbar;
+            border: 1px solid red;
+        }
+        
+        .toolbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .toolbar li {
+            float: left;
+        }
+        
+        .toolbar li a {
+            display: block;
+            padding: 8px;
+            background-color: #dddddd;
+        }
+        
+        .textarea:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+        }
+        /*
+        .textarea {
+            background-color: #fff;
+            color: #495057;
+            margin: 0px;
+            grid-area: textarea;
+            border: 1px solid blue;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }*/
+        
+        .textarea {
+            overflow: auto;
+            resize: vertical;
+            grid-area: textarea;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border: 1px solid #ced4da;
+        }
+        
+        .test {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img height="100" width="100" src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg">
+
+    <h1>The textarea element</h1>
+    <div class="div-perent">
+        <div class="toolbar">
+            <ul>
+                <li><a href="#home">Bold</a></li>
+                <li><a href="#news">Italic</a></li>
+            </ul>
+        </div>
+        <div contenteditable="true" class="textarea">
+            <p>Let the user resize only the height of this div element.</p>
+            <p>To resize: Click and drag the bottom right corner of this div element.</p>
+        </div>
+    </div>
+</body>
+
+</html>
