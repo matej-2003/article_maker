@@ -1,10 +1,10 @@
 class ImageEditor {
-    constructor(show_preview) {
+    constructor(show_preview, onfinnish) {
         this.element = {};
         this.show_preview = show_preview;
         this.ratio = 1;
         this.w_oreginal = this.h_oreginal = 1;
-        this.image = ce('img');
+        this.image = new Image();
         this.html = ce('div');
         this.table = ce('table');
         this.html.append(this.table);
@@ -30,11 +30,12 @@ class ImageEditor {
         this.reset_btn.innerText = 'Reset';
         this.finnish_btn = ce('button');
         this.finnish_btn.innerText = 'Finnish';
-
-        this.img_container = ce('div', {'class': 'img_container'});
-        this.image_desc = ce('div', {'class': 'img_desc'});
+        this.img_container = ce('div', { 'class': 'img_container' });
+        this.image_desc = ce('div', { 'class': 'img_desc' });
         this.title = '';
         this.desc = '';
+
+        this.disable();
 
         if (this.show_preview) {
             let row = this.table.insertRow(-1);
@@ -91,20 +92,22 @@ class ImageEditor {
             this.reset_btn,
             this.finnish_btn,
         );
+        
+        this.finnish_btn.addEventListener('click', () => {            
+            if (onfinnish) {
+                this.finnish_btn.onclick = onfinnish;
+                this.reset();
+            }
+        });
 
         this.show_btn.addEventListener('click', () => {
-            var f_reader = new FileReader();
-            f_reader.readAsDataURL(this.file_input.files[0]);
-            f_reader.addEventListener('load', (event) => {
-                this.image.src = event.target.result;
-                this.w_oreginal = this.image.width;
-                this.h_oreginal = this.image.height;
-                this.w_input.value = this.image.width;
-                this.h_input.value = this.image.height;
-                this.show_ratio(this.image.width, this.image.height);
-            });
+            this.load_img();
         });
- 
+
+        this.file_input.addEventListener('change', () => {
+            this.load_img();
+        });
+
         this.w_input.addEventListener('change', () => {
             if (this.keep_ration_input.checked) {
                 let w = parseInt(this.w_input.value);
@@ -121,7 +124,7 @@ class ImageEditor {
                 let h = parseInt(this.h_input.value);
                 let w = Math.floor(1 / (this.ratio / h));
                 this.w_input.value = h;
-                
+
                 this.image.height = h;
                 this.image.width = w;
                 this.show_ratio(w, h);
@@ -148,6 +151,79 @@ class ImageEditor {
             this.desc = this.desc_input.value.trim(' \n');
             this.format_desc();
         });
+    }
+
+    load_img() {
+        var f_reader = new FileReader();
+        f_reader.readAsDataURL(this.file_input.files[0]);
+        f_reader.addEventListener('load', (event) => {
+            this.image.src = event.target.result;
+            
+            this.image.addEventListener('load', () => {
+                this.enable();
+                this.w_oreginal = this.image.width;
+                this.h_oreginal = this.image.height;
+                this.w_input.value = this.image.width;
+                this.h_input.value = this.image.height;
+                this.show_ratio(this.image.width, this.image.height);
+            });
+        });
+    }
+
+    reset() {
+        this.w_input.value = '';
+        this.keep_ration_input.value = '';
+        this.ratio_show.innerText = '';
+        this.show_btn.value = '';
+        this.h_input.value = '';
+        this.resize_btn.value = '';
+        this.title_input.value = '';
+        this.alt_input.value = '';
+        this.desc_input.value = '';
+        this.reset_btn.value = '';
+        this.finnish_btn.value = '';       
+        this.file_input.value = '';
+
+        this.image = new Image();
+        this.img_container.innerHTML = '';
+        this.title = '';
+        this.desc = '';
+        this.image_desc.innerText = '';
+        this.img_container.append(
+            this.image,
+            this.image_desc,
+        );
+        this.disable();
+    }
+
+    get_image() {
+        return this.image.cloneNode(true);
+    }
+
+    disable() {
+        this.w_input.disabled = true;
+        this.keep_ration_input.disabled = true;
+        this.show_btn.disabled = true;
+        this.h_input.disabled = true;
+        this.resize_btn.disabled = true;
+        this.title_input.disabled = true;
+        this.alt_input.disabled = true;
+        this.desc_input.disabled = true;
+        this.reset_btn.disabled = true;
+        this.finnish_btn.disabled = true;
+    }
+
+    enable() {
+        this.w_input.disabled = false;
+        this.keep_ration_input.disabled = false;
+        this.show_btn.disabled = false;
+        this.h_input.disabled = false;
+        this.resize_btn.disabled = false;
+        this.title_input.disabled = false;
+        this.alt_input.disabled = false;
+        this.desc_input.disabled = false;
+        this.reset_btn.disabled = false;
+        this.finnish_btn.disabled = false;
     }
 
     show_ratio(w, h) {

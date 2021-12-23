@@ -8,6 +8,7 @@ class ElementEditor {
             this.block,
         );
         this.editor = editor;
+        this.block.innerHTML = this.editor.textbox.innerHTML;
         this.modal = new Modal(this.editor.html, '', '', () => {
             this.block.innerHTML = this.editor.textbox.innerHTML;
         });
@@ -16,9 +17,34 @@ class ElementEditor {
         this.settings_btn = ce('a', { 'href': '#' });
         this.settings_btn.innerText = 'Settings';
         this.settings_btn.addEventListener('click', () => {
+            console.log("open settings");
+        });
+
+        this.edit_btn = ce('a', { 'href': '#' });
+        this.edit_btn.innerText = 'Edit';
+        this.edit_btn.addEventListener('click', () => {
             this.modal.start();
         });
-        this.settings.append(this.settings_btn);
+
+        this.delete_btn = ce('a', { 'href': '#' });
+        this.delete_btn.innerText = 'Delete';
+        this.delete_btn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to delete this element')) {
+                this.html.remove();
+            }
+        });
+        this.settings.append(
+            this.settings_btn,
+            ce('br'),
+            this.edit_btn,
+            ce('br'),
+            this.delete_btn,
+        );
+    }
+
+    insert_html(html) {
+        this.block.innerHTML = html;
+        this.editor.textbox.innerHTML = html;
     }
 
     hide() {

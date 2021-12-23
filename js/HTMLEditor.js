@@ -1,11 +1,42 @@
 class HTMLEditor {
     constructor() {
+        const CODE = 'code';
+        const HMTL = 'html';
+        this.mode = HMTL;
+        this.mode_switch = ce('input', {'type': 'checkbox'});
+        this.code_editor = ce('div', { 'class': 'code_editor' });
+        this.html_editor = ce('div', { 'class': 'html_editor' });
+
+        this.code_textarea = ce('textarea');
+        this.code_editor.append(
+            this.code_textarea,
+        );
+        this.code_editor.style.display = 'none';
+
+        // THIS IS AN IMAGE EDITOR
+        this.img_editor = new ImageEditor(true, () => {
+            // onfinnish
+            this.textbox.append(this.img_editor.get_image());
+            this.img_editor.reset();
+            this.img_editor_modal.stop();
+        });
+        this.img_editor_modal = new Modal(this.img_editor.table, 'Image editor');
+
+        // BODY
         this.html = ce('div', { 'class': 'editor' });
+        this.html.append(
+            this.html_editor,
+            this.code_editor,
+            'HTML code:',
+            this.mode_switch,
+            this.img_editor_modal.modal,
+        );
+    
         this.toolbar = ce('div', { 'class': 'toolbar' });
         this.toolbar2 = ce('div', { 'class': 'toolbar2' });
         this.textbox = ce('div', { 'class': 'textbox', 'contenteditable': 'true'});
 
-        this.html.append(
+        this.html_editor.append(
             this.toolbar2,
             this.toolbar,
             this.textbox,
@@ -54,7 +85,8 @@ class HTMLEditor {
             this.size.append(opt);
         }
 
-        this.colors = ['red',
+        this.colors = [
+            'red',
             'green',
             'blue',
             'black',
@@ -77,8 +109,9 @@ class HTMLEditor {
         opt.innerText = '-color-';
         this.fg_color_selection.append(opt);
         for (let i of this.colors) {
-            opt = ce('option', { 'value': i });
+            opt = ce('option', { 'value': i});
             opt.innerText = i;
+            opt.style.color = i;
             this.fg_color_selection.append(opt);
         }
         this.fg_color = ce('input', { 'type': 'color' });
@@ -90,6 +123,7 @@ class HTMLEditor {
         for (let i of this.colors) {
             opt = ce('option', { 'value': i });
             opt.innerText = i;
+            opt.style.backgroundColor = i;
             this.bg_color_selection.append(opt);
         }
         this.bg_color = ce('input', { 'type': 'color' });
@@ -110,10 +144,10 @@ class HTMLEditor {
         // toolbar
 
         this.group1 = ce('div', {'class': 'btn-group'});
-        this.clear = ce('a', {'href': '#','title': 'Clear', 'class': 'icone clear'});
-        this.undo = ce('a', {'href': '#','title': 'Rndo', 'class': 'icone undo'});
-        this.redo = ce('a', {'href': '#','title': 'Redo', 'class': 'icone redo'});
-        this.remove_formatting = ce('a', {'href': '#','title': 'Remove formatting', 'class': 'icone remove_formatting'});
+        this.clear = ce('a', {'href': '#','title': 'Clear', 'class': 'icon clear'});
+        this.undo = ce('a', {'href': '#','title': 'Rndo', 'class': 'icon undo'});
+        this.redo = ce('a', {'href': '#','title': 'Redo', 'class': 'icon redo'});
+        this.remove_formatting = ce('a', {'href': '#','title': 'Remove formatting', 'class': 'icon remove_formatting'});
         this.group1.append(
             this.clear,
             this.undo,
@@ -122,12 +156,12 @@ class HTMLEditor {
         );
 
         this.group2 = ce('div', {'class': 'btn-group'});
-        this.bold = ce('a', {'href': '#','title': 'Bold', 'class': 'icone bold'});
-        this.italic = ce('a', {'href': '#','title': 'Italic', 'class': 'icone italic'});
-        this.underline = ce('a', {'href': '#','title': 'Underline', 'class': 'icone underline'});
-        this.strike_through = ce('a', {'href': '#','title': 'Strike through', 'class': 'icone strike_through'});
-        this.subscript = ce('a', {'href': '#','title': 'Sub script', 'class': 'icone subscript'});
-        this.superscript = ce('a', {'href': '#','title': 'Super script', 'class': 'icone superscript'});
+        this.bold = ce('a', {'href': '#','title': 'Bold', 'class': 'icon bold'});
+        this.italic = ce('a', {'href': '#','title': 'Italic', 'class': 'icon italic'});
+        this.underline = ce('a', {'href': '#','title': 'Underline', 'class': 'icon underline'});
+        this.strike_through = ce('a', {'href': '#','title': 'Strike through', 'class': 'icon strike_through'});
+        this.subscript = ce('a', {'href': '#','title': 'Sub script', 'class': 'icon subscript'});
+        this.superscript = ce('a', {'href': '#','title': 'Super script', 'class': 'icon superscript'});
         this.group2.append(
             this.bold,
             this.italic,
@@ -138,9 +172,9 @@ class HTMLEditor {
         );
 
         this.group3 = ce('div', {'class': 'btn-group'});
-        this.left_align = ce('a', {'href': '#','title': 'Left align', 'class': 'icone left_align'});
-        this.center_align = ce('a', {'href': '#','title': 'Center align', 'class': 'icone center_align'});
-        this.right_align = ce('a', {'href': '#','title': 'Right align', 'class': 'icone right_align'});
+        this.left_align = ce('a', {'href': '#','title': 'Left align', 'class': 'icon left_align'});
+        this.center_align = ce('a', {'href': '#','title': 'Center align', 'class': 'icon center_align'});
+        this.right_align = ce('a', {'href': '#','title': 'Right align', 'class': 'icon right_align'});
         this.group3.append(
             this.left_align,
             this.center_align,
@@ -148,11 +182,11 @@ class HTMLEditor {
         );
 
         this.group4 = ce('div', {'class': 'btn-group'});
-        this.numbered_list = ce('a', {'href': '#','title': 'Numbered list', 'class': 'icone numbered_list'});
-        this.dotted_list = ce('a', {'href': '#','title': 'Dotted list', 'class': 'icone dotted_list'});
-        this.quota = ce('a', {'href': '#','title': 'Quota', 'class': 'icone quota'});
-        this.delete_indentation = ce('a', {'href': '#','title': 'Delete indentation', 'class': 'icone delete_indentation'});
-        this.add_indentation = ce('a', {'href': '#','title': 'Add indentation', 'class': 'icone add_indentation'});
+        this.numbered_list = ce('a', {'href': '#','title': 'Numbered list', 'class': 'icon numbered_list'});
+        this.dotted_list = ce('a', {'href': '#','title': 'Dotted list', 'class': 'icon dotted_list'});
+        this.quota = ce('a', {'href': '#','title': 'Quota', 'class': 'icon quota'});
+        this.delete_indentation = ce('a', {'href': '#','title': 'Delete indentation', 'class': 'icon delete_indentation'});
+        this.add_indentation = ce('a', {'href': '#','title': 'Add indentation', 'class': 'icon add_indentation'});
         this.group4.append(
             this.numbered_list,
             this.dotted_list,
@@ -162,15 +196,19 @@ class HTMLEditor {
         );
 
         this.group5 = ce('div', {'class': 'btn-group'});
-        this.hyperlink = ce('a', {'href': '#','title': 'hyperlink', 'class': 'icone hyperlink'});
-        this.cut = ce('a', {'href': '#','title': 'cut', 'class': 'icone cut'});
-        this.copy = ce('a', {'href': '#','title': 'copy', 'class': 'icone copy'});
-        this.paste = ce('a', {'href': '#','title': 'paste', 'class': 'icone paste'});
+        this.hyperlink = ce('a', {'href': '#','title': 'Hyperlink', 'class': 'icon hyperlink'});
+        this.insert_image = ce('a', {'href': '#','title': 'Insert image', 'class': 'icon image_insert'});
+        this.cut = ce('a', {'href': '#','title': 'Cut', 'class': 'icon cut'});
+        this.copy = ce('a', {'href': '#','title': 'Copy', 'class': 'icon copy'});
+        this.paste = ce('a', {'href': '#','title': 'Paste', 'class': 'icon paste'});
+        this.html_code = ce('a', {'href': '#','title': 'HTML code', 'class': 'icon html_code'});
         this.group5.append(
             this.hyperlink,
+            this.insert_image,
             this.cut,
             this.copy,
             this.paste,
+            this.html_code,
         );
 
         this.toolbar.append(
@@ -211,6 +249,9 @@ class HTMLEditor {
                 this.format('createlink', link)
             }
         });
+        this.insert_image.addEventListener('click', () => {
+            this.img_editor_modal.start();
+        });
         this.cut.addEventListener('click', () => {this.format('cut')});
         this.copy.addEventListener('click', () => {this.format('copy')});
         this.paste.addEventListener('click', () => {this.format('paste')});
@@ -239,6 +280,33 @@ class HTMLEditor {
             this.bg_color_selection.selectedIndex = 0;
         });
         this.bg_color.onchange = () => {this.format('backcolor', this.bg_color.value)};
+
+
+
+        this.mode_switch.onchange = () => {
+            if (this.mode_switch.checked) {
+                this.mode = CODE;
+                this.html_editor.style.display = 'none';
+                this.code_editor.style.display = 'block';
+                this.code_textarea.style.height = '10em';
+                this.start_code_editor();
+            } else {
+                this.mode = HMTL;
+                this.html_editor.style.display = 'block';
+                this.code_editor.style.display = 'none';
+                this.start_html_editor();
+            }
+        }
+    }
+
+    start_code_editor() {
+        let code = this.textbox.innerHTML;
+        this.code_textarea.value = code;
+    }
+
+    start_html_editor() {
+        let code = this.code_textarea.value;
+        this.textbox.innerHTML = code;
     }
 
     format(sCmd, sValue) {

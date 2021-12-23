@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./css/modal_style.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/icons.css">
+    <link rel="stylesheet" href="./highlighter/googlecode.min.css">
+
     <style>
         img {
             width: 300px;
@@ -41,10 +43,11 @@
         <!-- <object type="image/svg+xml" data="./images/add.svg" class="svg"></object> -->
         <button class="add">Add</button>
     </div>
-
+    <script src="./highlighter/highlight.min.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/fonts.js"></script>
     <script src="./js/ElementEditor.js"></script>
+    <script src="./js/ImageEditor.js"></script>
     <script src="./js/HTMLEditor.js"></script>
     <script src="./js/modal_script.js"></script>
     <script>
@@ -72,6 +75,7 @@
 
         add.onclick = () => {
             let tmp = new ElementEditor(new HTMLEditor());
+            tmp.insert_html('<b>testing</b>');
             tmp.modal.start();
             main.append(tmp.html);
             element_list.push(tmp);
